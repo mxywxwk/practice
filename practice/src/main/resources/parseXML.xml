@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<List>
+	<String>
+		<int>1</int>
+		<double>1.2</double>
+	</String>
+	<String>
+		<int>2</int>
+		<double>2.3</double>
+	</String>
+</List>
