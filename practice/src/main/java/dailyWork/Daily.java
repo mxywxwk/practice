@@ -402,7 +402,7 @@ public class Daily {
 //		String user="mxywxwk@163.com";
 //		String key="wxwk196445";
 		String user="maxiangyi@power-peak.com.cn";
-		String key="wxwk196445@ALYX";
+		String key="************";
 //		发件人服务器地址
 //		String mailHost="smtp.163.com";
 		String mailHost="smtp.power-peak.com.cn";
