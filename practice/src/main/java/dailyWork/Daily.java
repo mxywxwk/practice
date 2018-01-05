@@ -20,7 +20,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -28,7 +27,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import org.jdom.input.SAXBuilder;
+import org.jdom2.input.SAXBuilder;
 import org.junit.Test;
 import org.w3c.dom.NodeList;
 import org.xml.sax.Attributes;
@@ -38,9 +37,9 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.powerpeak.nfc.utils.ImageUtil;
-import com.powerpeak.nfc.utils.KeyUtil;
-import com.powerpeak.nfc.utils.MapUtil;
+
+import util.ImageUtil;
+import util.MapUtil;
 
 public class Daily {
 	/**
@@ -154,11 +153,11 @@ public class Daily {
 	public void XMLReader3(){
 		long start=System.currentTimeMillis();
 		try{
-			org.jdom.input.SAXBuilder builder=new SAXBuilder();
+			org.jdom2.input.SAXBuilder builder=new SAXBuilder();
 			File file=new File("src/main/resources/parseXML.xml");
-			org.jdom.Document doc=(org.jdom.Document) builder.build(file);
-			org.jdom.Element foo=(org.jdom.Element) doc.getRootElement();
-			List<org.jdom.Element> allChildren=foo.getChildren();
+			org.jdom2.Document doc=(org.jdom2.Document) builder.build(file);
+			org.jdom2.Element foo=(org.jdom2.Element) doc.getRootElement();
+			List<org.jdom2.Element> allChildren=foo.getChildren();
 			for(int i=0;i<allChildren.size();i++){
 				System.out.print("int:"+(allChildren.get(i)).getChild("int").getText());
 				System.out.println("	double:"+allChildren.get(i).getChild("double").getText());
@@ -366,10 +365,6 @@ public class Daily {
 		byte[] data=new byte[2];
 		System.out.println(data.length);
 	}
-	@Test
-	public void test5(){
-		System.out.println(KeyUtil.decrypt("+y+au1vVDxuwu/Wt0288+g=="));
-	}
 	
 	public MimeMessage getMail(Session session, String user, String receive) throws Exception{
 //		链接邮件服务器的参数配置
@@ -463,7 +458,7 @@ public class Daily {
         if (!saveDir.getParentFile().exists()){
             saveDir.getParentFile().mkdirs();
         }
-		ImageUtil.GenerateImage("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", 
+        ImageUtil.GenerateImage("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", 
 				path);
 		
 	}

@@ -3,7 +3,6 @@
   <groupId>com.mxywxwk</groupId>
   <artifactId>practice</artifactId>
   <version>0.0.1</version>
-  <packaging>war</packaging>
 <dependencies>
 <dependency>
     <groupId>javax.usb</groupId>
@@ -55,6 +54,24 @@
     <artifactId>junit</artifactId>
     <version>4.12</version>
     <scope>test</scope>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
+<dependency>
+    <groupId>org.dom4j</groupId>
+    <artifactId>dom4j</artifactId>
+    <version>2.1.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.jdom/jdom -->
+<dependency>
+    <groupId>org.jdom</groupId>
+    <artifactId>jdom</artifactId>
+    <version>2.0.2</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/freemarker/freemarker -->
+<dependency>
+    <groupId>freemarker</groupId>
+    <artifactId>freemarker</artifactId>
+    <version>2.3.8</version>
 </dependency>
 
 </dependencies>

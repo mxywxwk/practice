@@ -134,9 +134,8 @@ public class Crawler {
 	
 	@Test
 	public void test5(){
-		Integer a=-128,b=-128,c=128,d=128;
+		Integer a=127,b=127,c=128,d=128;
 		System.out.println(a==b);
 		System.out.println(c==d);
-		StringUtils.isNotBlank("");
 	}
 }
