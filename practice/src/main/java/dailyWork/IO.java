@@ -1,9 +1,21 @@
 package dailyWork;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.RandomAccessFile;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +32,7 @@ public class IO {
 	
 	@Test
 	public void test1(){
-		File in=new File("D:\\eclipse\\2\\nfc");
+		File in=new File("D:\\workspace");
 		List<File> files=new ArrayList<File>();
 		files=fileToList(in,files);
 		File out=new File("e:/io/javaList.txt");
@@ -42,7 +54,6 @@ public class IO {
 			files.stream()
 				.forEach(file->{
 					String path=file.getAbsolutePath();
-					System.out.println(path);
 					try {
 						bw.write(path);
 						bw.newLine();
@@ -64,7 +75,6 @@ public class IO {
 	 * @param files
 	 */
 	private List<File> fileToList(File in, List<File> files) {
-		System.out.println("-----------start get file list------------");
 		Arrays.asList(in.listFiles())
 			.stream()
 			.forEach(file->{
@@ -74,7 +84,82 @@ public class IO {
 					if(file.getName().endsWith(".java"))
 						files.add(file);
 			});
-		System.out.println("-----------end get file list--------------");
 		return files;
 	}
+	
+	/**
+	 * 字节流写/读
+	 * @throws IOException 
+	 */
+	@Test
+	public void test2() throws IOException{
+		String outStr="hi，我的天啊";
+		byte[] outs=outStr.getBytes("utf-8");
+		OutputStream os=new FileOutputStream("e:/out.txt");
+		os.write(outs);
+		os.close();
+		
+		File file=new File("e://out.txt");
+		byte[] 	iss=new byte[(int) file.length()];
+		InputStream is=new FileInputStream(file);
+		is.read(iss);
+		System.out.println(new String(iss,"utf-8"));
+		is.close();
+	}
+	
+	/**
+	 * 字符流写/读
+	 * @throws IOException 
+	 */
+	@Test
+	public void test3() throws IOException {
+		String str=new String("我的天啊");
+		Writer w=new BufferedWriter(new OutputStreamWriter(new FileOutputStream("e:/w.txt"),"utf-8"),2*1024);
+		w.write(str);
+		w.close();
+		
+		Reader r=new InputStreamReader(new FileInputStream("e:/w.txt"),"utf-8");
+		Reader br=new BufferedReader(new InputStreamReader(new FileInputStream("e:/w.txt"),"utf-8"),4*1024);
+		StringBuffer sb=new StringBuffer();
+		char[] chars=new char[1];
+		while(r.read(chars)!=-1){
+			sb.append(new String(chars));
+		}
+		r.close();
+		br.close();
+		System.out.println(sb.toString());
+	}
+	
+	/**
+	 * 随机写/读文件
+	 * @throws IOException 
+	 */
+	@Test
+	public void test4() throws IOException {
+		File file=new File("e:/r.txt");
+		RandomAccessFile raf=new RandomAccessFile(file, "rw");
+		raf.seek(10);
+		raf.write("我的天啊".getBytes("utf-8"));
+		raf.seek(13);
+		byte[] bytes=new byte[3];
+		raf.read(bytes);
+		System.out.println(new String(bytes,"utf-8"));
+		System.out.println(System.identityHashCode(bytes));
+		raf.close();
+		System.out.println();
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

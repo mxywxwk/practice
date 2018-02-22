@@ -12,16 +12,22 @@ import org.junit.Test;
 public class NIO {
 	@Test
 	public void test1() throws IOException{
-		FileInputStream fis=new FileInputStream("e:/new 11.txt");
-		FileChannel fileIn=fis.getChannel();
-		ByteBuffer byteB=ByteBuffer.allocate(1024);
-		int len=0;
-		while((len=fileIn.read(byteB))!=-1){
-			System.out.println(len);
-			byteB.flip();
-			System.out.println((char)byteB.get());
-			byteB.clear();
+//		创建流	
+		FileInputStream is=new FileInputStream(new File("e://out.txt"));
+		FileOutputStream os=new FileOutputStream(new File("e://text.txt"));
+//		创建管道
+		FileChannel isc=is.getChannel();
+		FileChannel osc=os.getChannel();
+//		创建容器
+		ByteBuffer buffer=ByteBuffer.allocate(1024);
+//		copy数据
+		while(isc.read(buffer)!=-1) {
+//			重置buffer
+			buffer.flip();
+			osc.write(buffer);
+//			重置buffer
+			buffer.clear();
 		}
-		fis.close();
+		is.close();os.close();isc.close();osc.close();
 	}
 }

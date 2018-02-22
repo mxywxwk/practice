@@ -52,7 +52,7 @@ public class DateUtil {
 		System.out.println("分钟："+localDateTime.getMinute());
 		System.out.println("秒："+localDateTime.getSecond());
 //		创建某个日期
-		LocalDate date=LocalDate.of(2017, 9, 12);
+		LocalDate date=LocalDate.of(2018, 2, 5);
 		System.out.println(date);
 		System.out.println(date.equals(localDate));
 		Clock clock=Clock.systemUTC();
